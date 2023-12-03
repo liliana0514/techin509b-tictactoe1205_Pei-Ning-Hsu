@@ -48,15 +48,13 @@ if __name__ == "__main__":
                 print("Updated Board:")
                 game.print_board()
 
-                first_move = f"({row}, {col})"
-                outcome = "Win" if game.check_winner() else "Draw" if game.is_board_full() else "Incomplete"
-                game.record_winner(first_move, outcome)
-
                 if game.check_winner():
                     print(f"{game.current_player.name} wins!")
+                    game.record_winner()  # Record the winner
                     break
                 elif game.is_board_full():
                     print("It's a draw!")
+                    game.record_winner()  # Record the draw
                     break
 
                 game.switch_player()  # Switch player after each move
