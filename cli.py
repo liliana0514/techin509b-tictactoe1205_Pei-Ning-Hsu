@@ -32,7 +32,9 @@ if __name__ == "__main__":
 
     game = Game(player1, player2)
     
-    
+
+# ...
+
     try:
         while True:
             game.print_board()
