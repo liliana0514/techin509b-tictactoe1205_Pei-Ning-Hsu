@@ -90,9 +90,12 @@ class Game:
         return self.winner
     def announce_winner(self, winner):
         print(f"{winner.name} wins!")
-    def record_winner(self, first_square, outcome):
+
+    # Update record_winner method in logic.py
+    def record_winner(self, first_move, outcome):
         with open('logs/game_log.csv', mode='a', newline='') as file:
             writer = csv.writer(file)
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             winner_name = self.get_winner().name if self.get_winner() else 'Draw'
-            writer.writerow([timestamp, self.players[0].name, self.players[1].name, winner_name, first_square, outcome])
+            writer.writerow([timestamp, self.players[0].name, self.players[1].name, winner_name, first_move, outcome])
+
