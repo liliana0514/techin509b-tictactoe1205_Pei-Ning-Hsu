@@ -1,4 +1,4 @@
-# tests.py
+# testlogic.py
 import pytest
 from logic import Player, Game
 
