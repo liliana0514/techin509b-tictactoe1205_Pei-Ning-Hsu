@@ -99,3 +99,27 @@ class Game:
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             winner_name = self.get_winner().name if self.get_winner() else 'Draw'
             writer.writerow([timestamp, self.players[0].name, self.players[1].name, winner_name, first_move, outcome])
+
+    def get_player_stats(self, player_name):
+        games_played = 0
+        wins = 0
+        draws = 0
+
+        with open('logs/game_log.csv', 'r') as file:
+            reader = csv.reader(file)
+            next(reader)  # Skip header
+            for row in reader:
+                if player_name in row[1:3]:
+                    games_played += 1
+                    outcome = row[3]
+                    if outcome == 'Win':
+                        wins += 1
+                    elif outcome == 'Draw':
+                        draws += 1
+
+        return {
+            'Games Played': games_played,
+            'Wins': wins,
+            'Draws': draws,
+            'Winning Percentage': (wins / games_played) * 100 if games_played > 0 else 0
+        }
