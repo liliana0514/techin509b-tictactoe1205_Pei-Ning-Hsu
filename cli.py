@@ -35,6 +35,8 @@ if __name__ == "__main__":
 
     # Update the call to record_winner in cli.py
     try:
+        player1_start_pos=(-1,-1)
+        player2_start_pos=(-1,-1)
         while True:
             game.print_board()
 
@@ -45,13 +47,24 @@ if __name__ == "__main__":
                 col = int(input(f"{game.current_player.name}, enter col (0-2): "))
 
             if game.is_valid_move(row, col):
+
+                #Determine whether player1 player2 plays chess for the first time
+                #(-1,-1) default
+                if game.current_player.name == player1.name and player1_start_pos==(-1,-1):
+                    player1_start_pos=(row,col)
+                elif game.current_player.name == player2.name and player2_start_pos==(-1,-1):
+                    player2_start_pos=(row,col)
+
                 game.make_move(row, col)
                 print("Updated Board:")
                 game.print_board()
 
                 if game.check_winner():
                     print(f"{game.current_player.name} wins!")
-                    game.record_winner((row, col), 'Win')  # Record the winner with first move and outcome
+                    if game.current_player.name == player1.name:
+                        game.record_winner(player1_start_pos, 'Win')  # Record the winner with first move and outcome
+                    else:
+                        game.record_winner(player2_start_pos, 'Win')  # Record the winner with first move and outcome
                     break
                 elif game.is_board_full():
                     print("It's a draw!")
