@@ -33,8 +33,7 @@ if __name__ == "__main__":
     game = Game(player1, player2)
     
 
-# ...
-
+    # Update the call to record_winner in cli.py
     try:
         while True:
             game.print_board()
@@ -52,11 +51,11 @@ if __name__ == "__main__":
 
                 if game.check_winner():
                     print(f"{game.current_player.name} wins!")
-                    game.record_winner((row, col), 'win')  # Pass first_square and outcome
+                    game.record_winner((row, col), 'Win')  # Record the winner with first move and outcome
                     break
                 elif game.is_board_full():
                     print("It's a draw!")
-                    game.record_winner((row, col), 'draw')  # Pass first_square and outcome
+                    game.record_winner((row, col), 'Draw')  # Record the draw with first move and outcome
                     break
 
                 game.switch_player()  # Switch player after each move
