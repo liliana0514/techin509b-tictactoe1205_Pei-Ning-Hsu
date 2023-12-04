@@ -2,16 +2,9 @@
 # the Tic-Tac-Toe game. This is where input and output happens.
 # For core game logic, see logic.py.
 
-#cli.py
-
 from logic import Player, Game
-import random
-import os  # Import the os module for directory handling
 
-# Ensure the 'logs' directory exists
-log_directory = 'logs'
-if not os.path.exists(log_directory):
-    os.makedirs(log_directory)
+import random
 
 if __name__ == "__main__":
     game_mode = input("Enter game mode (1 for single player, 2 for two players): ")
@@ -57,17 +50,13 @@ if __name__ == "__main__":
 
                 if game.check_winner():
                     print(f"{game.current_player.name} wins!")
-                    first_move = f"{row}-{col}"  # assuming row and col are the last valid move
-                    outcome = "Win"
-                    game.record_winner(first_move, outcome)
+                    game.record_winner()  # Record the winner
                     break
                 elif game.is_board_full():
                     print("It's a draw!")
-                    first_move = f"{row}-{col}"  # assuming row and col are the last valid move
-                    outcome = "Draw"
-                    game.record_winner(first_move, outcome)
+                    game.record_winner()  # Record the draw
                     break
-                
+
                 game.switch_player()  # Switch player after each move
             else:
                 print("Invalid move. Try again.")
