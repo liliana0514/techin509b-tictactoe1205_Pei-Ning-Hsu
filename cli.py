@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     game = Game(player1, player2)
     
-
+    
     try:
         while True:
             game.print_board()
@@ -50,11 +50,11 @@ if __name__ == "__main__":
 
                 if game.check_winner():
                     print(f"{game.current_player.name} wins!")
-                    game.record_winner()  # Record the winner
+                    game.record_winner((row, col), 'win')  # Pass first_square and outcome
                     break
                 elif game.is_board_full():
                     print("It's a draw!")
-                    game.record_winner()  # Record the draw
+                    game.record_winner((row, col), 'draw')  # Pass first_square and outcome
                     break
 
                 game.switch_player()  # Switch player after each move
