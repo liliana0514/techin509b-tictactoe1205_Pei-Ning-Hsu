@@ -50,9 +50,11 @@ class Game:
     def make_move(self, row, col):
         if self.is_valid_move(row, col):
             self.board[row][col] = self.current_player.symbol
+            first_move = f"{row}-{col}"  # Format the first move
+            outcome = "Win" if self.check_winner() else ("Draw" if self.is_board_full() else "Continue")
+            self.record_winner(first_move, outcome)
         else:
             print("Invalid move. Try again.")
-
 
     def switch_player(self):
         current_index = self.players.index(self.current_player)
@@ -90,6 +92,13 @@ class Game:
         return self.winner
     def announce_winner(self, winner):
         print(f"{winner.name} wins!")
+    def record_winner(self, first_move, outcome):
+        with open('logs/game_log.csv', mode='a', newline='') as file:
+            writer = csv.writer(file)
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            winner_name = self.get_winner().name if self.get_winner() else 'Draw'
+            writer.writerow([timestamp, self.players[0].name, self.players[1].name, winner_name, first_move, outcome])
+
     def record_winner(self, first_move, outcome):
         with open('logs/game_log.csv', mode='a', newline='') as file:
             writer = csv.writer(file)
